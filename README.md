@@ -21,7 +21,7 @@ async def auto_answer(event, message):
     await app.send_message(chat_id=message.chat.id, text=text)
 ```
 **flip text**
-```
+``` python
 REPLACEMENT_MAP = {
     "a": "ɐ",
     "b": "q",
@@ -120,7 +120,7 @@ def flip(_, msg):
         msg.edit(text)
 ```
 **beauty_text**
-```
+``` python
 from pyrogram.errors import FloodWait
 @app.on_message(filters.command("type", prefixes=".") & filters.me)
 def type( _, msg):
