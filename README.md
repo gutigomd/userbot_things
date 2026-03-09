@@ -1,145 +1,61 @@
-# codes
-**game dice:**
-``` python
-@app.on_message(filters=filters.dice)
-def dice(client, message):
-    player_1 = message
-    player_2 = app.send_dice(message.chat.id)
+# Userbot Things 🤖
 
-   if player_1.dice.value > player_2.dice.value:
-       app.send_message(message.chat.id, 'You win :)')
-   elif player_1.dice.value < player_2.dice.value:
-       app.send_message(message.chat.id, 'You lose :(')
-   else:
-       app.send_message(message.chat.id, 'draw')
+
+
+A lightweight, modular, and efficient Telegram Userbot built with Python. This project is designed to automate personal account tasks, provide utility commands, and streamline your Telegram experience directly from your chat interface.
+
+## 🚀 Features
+
+* **Utility Tools**: Built-in commands for text formatting, media management, and advanced chat navigation.
+* **Automation**: Task-handling logic designed to run in the background.
+* **Modular Design**: Structured for easy extension. You can add custom handlers or plugins without cluttering the main codebase.
+* **Lightweight**: Optimized for minimal resource usage and fast execution.
+
+## 🏗 How it Works
+
+Unlike standard bots, this project uses the **MTProto protocol** to interact with Telegram servers. It acts on your behalf, meaning it performs actions as if you were typing from your phone or desktop app.
+
 ```
-**auto_answer**
-``` python
-text = "I'm busy now, I'll answer when I'm free"
-@app.on_message(filters=filters.private)
-async def auto_answer(event, message):
-    await app.send_message(chat_id=message.chat.id, text=text)
+[Telegram Servers] <---> [Userbot Script]
+                              ^
+                              |
+                     [Your Telegram Account]
 ```
-**flip text**
-``` python
-REPLACEMENT_MAP = {
-    "a": "ɐ",
-    "b": "q",
-    "c": "ɔ",
-    "d": "p",
-    "e": "ǝ",
-    "f": "ɟ",
-    "g": "ƃ",
-    "h": "ɥ",
-    "i": "ᴉ",
-    "j": "ɾ",
-    "k": "ʞ",
-    "l": "l",
-    "m": "ɯ",
-    "n": "u",
-    "o": "o",
-    "p": "d",
-    "q": "b",
-    "r": "ɹ",
-    "s": "s",
-    "t": "ʇ",
-    "u": "n",
-    "v": "ʌ",
-    "w": "ʍ",
-    "x": "x",
-    "y": "ʎ",
-    "z": "z",
-    "A": "∀",
-    "B": "B",
-    "C": "Ɔ",
-    "D": "D",
-    "E": "Ǝ",
-    "F": "Ⅎ",
-    "G": "פ",
-    "H": "H",
-    "I": "I",
-    "J": "ſ",
-    "K": "K",
-    "L": "˥",
-    "M": "W",
-    "N": "N",
-    "O": "O",
-    "P": "Ԁ",
-    "Q": "Q",
-    "R": "R",
-    "S": "S",
-    "T": "┴",
-    "U": "∩",
-    "V": "Λ",
-    "W": "M",
-    "X": "X",
-    "Y": "⅄",
-    "Z": "Z",
-    "0": "0",
-    "1": "Ɩ",
-    "2": "ᄅ",
-    "3": "Ɛ",
-    "4": "ㄣ",
-    "5": "ϛ",
-    "6": "9",
-    "7": "ㄥ",
-    "8": "8",
-    "9": "6",
-    ",": "'",
-    ".": "˙",
-    "?": "¿",
-    "!": "¡",
-    '"': ",,",
-    "'": ",",
-    "(": ")",
-    ")": "(",
-    "[": "]",
-    "]": "[",
-    "{": "}",
-    "}": "{",
-    "<": ">",
-    ">": "<",
-    "&": "⅋",
-    "_": "‾",
-}
+# 🛠 Setup Instructions
+### 1. Prerequisites
+Python 3.10+ installed on your system.
 
+An API ID and API Hash obtained from my.telegram.org.
 
-@app.on_message(filters.command("flip", prefixes=".") & filters.me)
-def flip(_, msg):
-    text = msg.text.split(".flip", maxsplit=1)[1]
-    final_str = ""
-    for char in text:
-        if char in REPLACEMENT_MAP.keys():
-            new_char = REPLACEMENT_MAP[char]
-        else:
-            new_char = char
-        final_str += new_char
-    if text != final_str:
-        msg.edit(final_str)
-    else:
-        msg.edit(text)
+### 2. Installation
+Clone the repository:
 ```
-**beauty_text**
-``` python
-from pyrogram.errors import FloodWait
-@app.on_message(filters.command("type", prefixes=".") & filters.me)
-def type( _, msg):
-    orig_text = msg.text.split(".type ", maxsplit=1)[1]
-    text = orig_text
-    tbp = "" # to be printed
-    typing_symbol = "▒"
-
-    while(tbp != orig_text):
-        try:
-            msg.edit(tbp + typing_symbol)
-            sleep(0.05) # 50 ms
-
-            tbp = tbp + text[0]
-            text = text[1:]
-
-            msg.edit(tbp)
-            sleep(0.05)
-
-        except FloodWait as e:
-            sleep(e.x)
+git clone [https://github.com/gutigomd/userbot_things.git](https://github.com/gutigomd/userbot_things.git)
+cd userbot_things
 ```
+Install dependencies:
+```
+pip install -r requirements.txt
+```
+Setup environment variables:
+Create a .env file in the root directory and add your credentials. Never commit this file to GitHub.
+```
+API_ID=your_api_id
+API_HASH=your_api_hash
+SESSION_NAME=my_userbot
+```
+Run the bot:
+```
+python main.py
+```
+# 🛡 Safety and Disclaimer
+### ⚠️ Important Usage Warning:
+This project is a Userbot. It performs actions directly on your personal Telegram account.
+
+Compliance: Telegram's Terms of Service prohibit spamming or automated mass-messaging. Use this tool only for personal automation and productivity.
+
+Account Ban Risk: Excessive API calls or suspicious behavior can lead to account restrictions or bans. You are responsible for your account activity.
+
+Data Security: Never share your SESSION_NAME.session file or your API credentials with anyone.
+
+Disclaimer: I am not responsible for any account limitations, bans, or technical issues that may arise from using this script. Use this tool at your own risk.
