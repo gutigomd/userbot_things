@@ -1,11 +1,18 @@
-@app.on_message(filters=filters.dice) #incomplete code!!!
-def dice(client, message):
-    player_1 = message
-    player_2 = app.send_dice(message.chat.id)
+from pyrogram import filters
+from userbot import app
 
-   if player_1.dice.value > player_2.dice.value:
-       app.send_message(message.chat.id, 'You win :)')
-   elif player_1.dice.value < player_2.dice.value:
-       app.send_message(message.chat.id, 'You lose :(')
-   else:
-       app.send_message(message.chat.id, 'draw')
+
+@app.on_message(filters.dice)
+def dice(client, message):
+    if not message.dice:
+        return
+
+    player_1 = message.dice.value
+    player_2 = app.send_dice(message.chat.id).dice.value
+
+    if player_1 > player_2:
+        app.send_message(message.chat.id, 'You win :)')
+    elif player_1 < player_2:
+        app.send_message(message.chat.id, 'You lose :(')
+    else:
+        app.send_message(message.chat.id, 'draw')

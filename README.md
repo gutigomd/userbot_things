@@ -46,7 +46,7 @@ SESSION_NAME=my_userbot
 ```
 Run the bot:
 ```
-python main.py
+python userbot.py
 ```
 # 🛡 Safety and Disclaimer
 ### ⚠️ Important Usage Warning:
